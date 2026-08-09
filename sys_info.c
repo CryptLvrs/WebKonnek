@@ -7,7 +7,6 @@ int main() {
         printf("Error : Unable to open file called 'loadavg'.\n");
         return 1;
     }
-
     printf("Success : 'loadavg' file is open.\n");
 
     char fline[15];
@@ -24,9 +23,7 @@ int main() {
         return 1;
     }
 
-    printf("load1 : %.2f\n", load1min);
-    printf("load5 : %.2f\n", load5min);
-    printf("load 15 : %.2f\n", load15min);
+    printf("{\"load1\": %.2f, \"load5\": %.2f, \"load15\": %.2f}\n", load1min, load5min, load15min);
 
     return 0;
 }
