@@ -54,7 +54,6 @@ dkms.conf
 # debug information files
 *.dwo
 
-src_c/
 *.o
 
 # Python virtual env
