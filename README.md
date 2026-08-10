@@ -1,4 +1,7 @@
 # WebKonneK
 
-Get CPU, RAM (and other...?) usage from a distant server, all in a simple web page. 
-The project aim to set-up a distant server connection in a simplest way but with modularity and security.
+This project is a personal hands-on journey to explore how system layers interact while learning C. 
+The goal is to build a lightweight monitoring tool that displays real-time resource usage in a browser.
+I'll be updating this README.md as the project develops.
+
+*Please note that this is a learning project, which will continue to grow as I acquire new skills*
