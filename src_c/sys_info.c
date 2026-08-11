@@ -9,7 +9,6 @@ int main() {
         printf("Error : Unable to open file called 'loadavg'.\n");
         return 1;
     }
-    printf("Success : 'loadavg' file is open.\n");
 
     char fline[128];
     if (fgets(fline, sizeof(fline), fptr) == NULL) {
@@ -20,7 +19,7 @@ int main() {
 
     float load1min, load5min, load15min;
     if (sscanf(fline, "%f %f %f", &load1min, &load5min, &load15min) != 3) {
-        printf("Error : There isn't any float number for one min load average in file 'loadavg'.\n");
+        printf("Error : Error: Failed to parse load averages from 'loadavg'.\n");
         fclose(fptr);
         return 1;
     }
@@ -32,38 +31,22 @@ int main() {
         fclose(fptr);
         return 1;
     }
-    printf("Success : 'meminfo' file is open.\n");
 
     char memline[256];
-    long memory_total;
-    long memory_free;
+    long memory_total = -1;
+    long memory_free = -1;
+    int found_count = 0;
 
-    if (fgets(memline, sizeof(memline), fptr2) == NULL) {
-        printf("Error : Failed to read from memory information file.\n");
-        fclose(fptr2);
-        fclose(fptr);
-        return 1;
-    }
-
-    if (sscanf(memline, "MemTotal: %ld", &memory_total) != 1) {
-        printf("Error : There isn't any integer for 'MemTotal' in file 'meminfo'.\n");
-        fclose(fptr2);
-        fclose(fptr);
-        return 1;
-    }
-
-    if (fgets(memline, sizeof(memline), fptr2) == NULL) {
-        printf("Error : Failed to read from memory information file.(l2)\n");
-        fclose(fptr2);
-        fclose(fptr);
-        return 1;
-    }
-
-    if (sscanf(memline, "MemFree: %ld", &memory_free) != 1) {
-        printf("Error : There isn't any integer for 'MemFree' in file 'meminfo'.\n");
-        fclose(fptr2);
-        fclose(fptr);
-        return 1;
+    while (fgets(memline, sizeof(memline), fptr2)) {
+        if (sscanf(memline, "MemTotal: %ld kB", &memory_total) == 1) {
+            found_count++;
+        }
+        if (sscanf(memline, "MemFree: %ld kB", &memory_free) == 1) {
+            found_count++;
+        }
+        if (found_count == 2) {
+            break;
+        }
     }
 
     // Temp output ('JSON' "format") 
