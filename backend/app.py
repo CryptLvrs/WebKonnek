@@ -24,7 +24,8 @@ class systeminfo:
 
 app = Flask(__name__)
 
-C_EXECUTABLE_PATH = "../src_c/sys_info" # will review that
+CURRENT_DIR = os.path.dirname(os.path.abspath(__file__))
+C_EXECUTABLE_PATH = os.path.join(CURRENT_DIR, "../src_c/sys_info") # tested and display json output
 
 @app.route('/api/stats')
 def get_stats():
@@ -33,4 +34,4 @@ def get_stats():
     return jsonify(system_data)
 
 if __name__ == '__main__':
-    app.run(debug=True) # (Temporary) allows to run the app directly with "python app.py" 
+    app.run(port=2222, debug=True) # (Temporary) allows to run the app directly with "python app.py" 
