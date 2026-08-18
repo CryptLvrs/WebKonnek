@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>WebKonnek Dashboard</title>
+    <link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+    <div class="container">
+        <h1>System Monitor</h1>
+
+        <div class="card">
+            <h2>CPU Load Averages</h2>
+            <p>1 Minute: <span id="load-1min">--</span></p>
+            <p>5 Minutes: <span id="load-5min">--</span></p>
+            <p>15 Minutes: <span id="load-15min">--</span></p>
+        </div>
+
+        <div class="card">
+            <h2>Memory Usage</h2>
+            <p>Total: <span id="mem-total">--</span> KB</p>
+            <p>Free: <span id="mem-free">--</span> KB</p>
+        </div>
+    </div>
+
+    <script src="/static/app.js"></script>
+</body>
+</html>
