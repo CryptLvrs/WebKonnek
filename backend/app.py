@@ -1,7 +1,5 @@
-import subprocess
-import json
 import os
-from flask import Flask, jsonify, render_template 
+from flask import Flask, jsonify, render_template
 from .monitor_reader import SystemMonitor
 
 
