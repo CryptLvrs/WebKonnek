@@ -49,8 +49,27 @@ int main() {
         }
     }
 
+    FILE *fptr3 = fopen("/proc/uptime", "r");
+    if (fptr3 == NULL) {
+        printf("Error : Unable to open file called 'uptime'.\n");
+        fclose(fptr);
+        fclose(fptr2);
+        return 1;
+    }
+
+    char uptimeline[64];
+    double uptime_seconds = -1;
+    if (fgets(uptimeline, sizeof(uptimeline), fptr3) == NULL || sscanf(uptimeline, "%lf", &uptime_seconds) != 1) {
+        printf("Error : Failed to parse uptime from 'uptime'.\n");
+        fclose(fptr);
+        fclose(fptr2);
+        fclose(fptr3);
+        return 1;
+    }
+    fclose(fptr3);
+
     // Temp output ('JSON' "format") 
-    printf("{\"load1\": %.2f, \"load5\": %.2f, \"load15\": %.2f, \"memtotal\": %ld, \"memfree\": %ld}\n", load1min, load5min, load15min, memory_total, memory_free);
+    printf("{\"load1\": %.2f, \"load5\": %.2f, \"load15\": %.2f, \"memtotal\": %ld, \"memfree\": %ld, \"uptime\": %.0f}\n", load1min, load5min, load15min, memory_total, memory_free, uptime_seconds);
     fclose(fptr);
     fclose(fptr2);
 
