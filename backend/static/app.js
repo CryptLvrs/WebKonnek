@@ -1,3 +1,16 @@
+function formatUptime(seconds) {
+    const days = Math.floor(seconds / 86400);
+    const hours = Math.floor((seconds % 86400) / 3600);
+    const minutes = Math.floor((seconds % 3600) / 60);
+    return days + "d " + hours + "h " + minutes + "m";
+}
+
+function formatMemory(kb) {
+    const mb = Math.round(kb / 1024);
+    const gb = (kb / 1024 / 1024).toFixed(2);
+    return mb + " MB (" + gb + " GB)";
+}
+
 async function getStats() {
     try {
         const response = await fetch('/api/stats'); // Call Flask API endpoint
@@ -17,8 +30,10 @@ async function getStats() {
         document.getElementById('load-15min').innerText = data.load15.toFixed(2);
 
         // Update Memory Usage
-        document.getElementById('mem-total').innerText = data.memtotal;
-        document.getElementById('mem-free').innerText = data.memfree;
+        document.getElementById('mem-total').innerText = formatMemory(data.memtotal);
+        document.getElementById('mem-free').innerText = formatMemory(data.memfree);
+
+        document.getElementById('uptime').innerText = formatUptime(data.uptime);
 
     } catch (error) {
         console.error("Failed to fetch stats:", error);
@@ -26,4 +41,4 @@ async function getStats() {
 }
 
 getStats(); // Call once immediately to load data on page load
-setInterval(getStats, 2000); // Call every 2 seconds for real-time updates but it will be updated for sure
+setInterval(getStats, 5000); // Call every 5 seconds for real-time updates but it will be updated for sure
