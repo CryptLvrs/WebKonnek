@@ -49,6 +49,7 @@ int main() {
         }
     }
 
+    // 'uptime' part
     FILE *fptr3 = fopen("/proc/uptime", "r");
     if (fptr3 == NULL) {
         printf("Error : Unable to open file called 'uptime'.\n");
