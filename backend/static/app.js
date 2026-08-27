@@ -33,6 +33,14 @@ async function getStats() {
         document.getElementById('mem-total').innerText = formatMemory(data.memtotal);
         document.getElementById('mem-free').innerText = formatMemory(data.memfree);
 
+        const freePercent = Math.round((data.memfree / data.memtotal) * 100);
+        const freeEl = document.getElementById('mem-free');
+        if (freePercent <= 15) {
+            freeEl.classList.add('low');
+        } else {
+            freeEl.classList.remove('low');
+        }
+
         document.getElementById('uptime').innerText = formatUptime(data.uptime);
 
     } catch (error) {
