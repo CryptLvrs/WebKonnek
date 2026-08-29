@@ -32,3 +32,25 @@ h1 {
     color: #ff4444;
     font-weight: bold;
 }
+
+input[type="password"] {
+    padding: 8px;
+    border-radius: 4px;
+    border: 1px solid #555;
+    background-color: #222;
+    color: #eee;
+}
+
+button {
+    padding: 8px 16px;
+    border-radius: 4px;
+    border: none;
+    background-color: #00ff00;
+    color: #222;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.error {
+    color: #ff4444;
+}
