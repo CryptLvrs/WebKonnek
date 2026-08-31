@@ -11,6 +11,11 @@ function formatMemory(kb) {
     return mb + " MB (" + gb + " GB)";
 }
 
+function formatDisk(bytes) {
+    const gb = (bytes / 1024 / 1024 / 1024).toFixed(1);
+    return gb + " GB";
+}
+
 async function getStats() {
     try {
         const response = await fetch('/api/stats'); // Call Flask API endpoint
@@ -18,9 +23,10 @@ async function getStats() {
 
         if (data.error) {
             console.error("API Error:", data.error);
-            // Update UI to show error
             document.getElementById('load-1min').innerText = 'Error';
             document.getElementById('mem-total').innerText = 'Error';
+            document.getElementById('connection').innerText = 'Offline';
+            document.getElementById('connection').className = 'connection-bad';
             return;
         }
 
@@ -43,8 +49,26 @@ async function getStats() {
 
         document.getElementById('uptime').innerText = formatUptime(data.uptime);
 
+        document.getElementById('disk-total').innerText = formatDisk(data.disk_total);
+        document.getElementById('disk-free').innerText = formatDisk(data.disk_free);
+
+        const diskFreePercent = Math.round((data.disk_free / data.disk_total) * 100);
+        const diskEl = document.getElementById('disk-free');
+        if (diskFreePercent <= 15) {
+            diskEl.classList.add('low');
+        } else {
+            diskEl.classList.remove('low');
+        }
+
+        const now = new Date();
+        document.getElementById('last-updated').innerText = now.toLocaleTimeString();
+        document.getElementById('connection').innerText = 'Connected';
+        document.getElementById('connection').className = 'connection-ok';
+
     } catch (error) {
         console.error("Failed to fetch stats:", error);
+        document.getElementById('connection').innerText = 'Offline';
+        document.getElementById('connection').className = 'connection-bad';
     }
 }
 

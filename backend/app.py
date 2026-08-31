@@ -1,4 +1,5 @@
 import os
+import shutil
 from flask import Flask, jsonify, render_template, session, redirect, url_for, request
 from werkzeug.security import generate_password_hash, check_password_hash
 from .monitor_reader import SystemMonitor
@@ -22,7 +23,6 @@ def login_required(func):
     return wrapper
 
 
-Open
 CURRENT_DIR = os.path.dirname(os.path.abspath(__file__))
 C_EXECUTABLE_PATH = os.path.join(CURRENT_DIR, "../src_c/sys_info")
 
@@ -55,6 +55,11 @@ def logout():
 def get_stats():
     monitor = SystemMonitor(C_EXECUTABLE_PATH)
     system_data = monitor.get_metrics()
+
+    disk = shutil.disk_usage("/")
+    system_data["disk_total"] = disk.total
+    system_data["disk_free"] = disk.free
+
     return jsonify(system_data)
 
 if __name__ == '__main__':

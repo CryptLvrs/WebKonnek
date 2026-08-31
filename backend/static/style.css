@@ -54,3 +54,22 @@ button {
 .error {
     color: #ff4444;
 }
+
+.footer {
+    color: #999;
+    font-size: 0.9em;
+    margin-top: 20px;
+}
+
+.connection-ok {
+    color: #00ff00;
+}
+
+.connection-bad {
+    color: #ff4444;
+    font-weight: bold;
+}
+
+a {
+    color: #00ff00;
+}

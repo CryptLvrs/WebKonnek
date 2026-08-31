@@ -9,6 +9,7 @@
 <body>
     <div class="container">
         <h1>System Monitor</h1>
+        <p><a href="{{ url_for('logout') }}">Log out</a></p>
 
         <div class="card">
             <h2>CPU Load Averages</h2>
@@ -24,9 +25,17 @@
         </div>
 
         <div class="card">
+            <h2>Disk Usage</h2>
+            <p>Total: <span id="disk-total">--</span></p>
+            <p>Free: <span id="disk-free">--</span></p>
+        </div>
+
+        <div class="card">
             <h2>System Uptime</h2>
             <p>Uptime: <span id="uptime">--</span></p>
         </div>
+
+        <p class="footer">Last updated: <span id="last-updated">--</span> <span id="connection">--</span></p>
     </div>
 
     <script src="/static/app.js"></script>
