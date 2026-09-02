@@ -63,7 +63,7 @@ def get_stats():
     return jsonify(system_data)
 
 if __name__ == '__main__':
-    app.run(port=2222, debug=True) 
+    app.run(host="0.0.0.0", port=5000, debug=True) 
 
 # COMMANDS SECTIONS FOR DEV
 # source .venv/bin/activate
